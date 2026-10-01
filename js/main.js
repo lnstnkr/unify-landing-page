@@ -1,9 +1,13 @@
 // Analytics (PostHog) — custom events on top of PostHog's pageviews and autocapture.
+// Custom events are prefixed so they're recognisable among other products' events;
+// every event also gets site: 'unify-landing-page' (see before_send in index.html).
 // Safe when PostHog is blocked: track() then does nothing.
+const EVENT_PREFIX = 'unify_landing_';
+
 const track = (event, properties = {}) => {
   try {
     if (window.posthog && typeof window.posthog.capture === 'function') {
-      window.posthog.capture(event, properties);
+      window.posthog.capture(EVENT_PREFIX + event, properties);
     }
   } catch (e) { /* never let analytics break the page */ }
 };

@@ -15,6 +15,15 @@
       defaults: '2026-05-30',
       person_profiles: 'identified_only',
       persistence: 'memory', // cookieless: no cookies or localStorage
+      capture_pageview: true, // only real page loads; in-page #anchor jumps are not page views
+      // Tag every event (incl. $pageview, $autocapture, $pageleave) so this site is easy to filter
+      before_send: function (event) {
+        if (event) {
+          event.properties = event.properties || {};
+          event.properties.site = 'unify-landing-page';
+        }
+        return event;
+      },
     })
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
