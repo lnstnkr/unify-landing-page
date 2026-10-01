@@ -1,0 +1,1624 @@
+/* ==========================================================================
+   Design tokens (from Figma: Unify Landingpage v2)
+   ========================================================================== */
+:root {
+  /* Colors */
+  --color-brand: #006bfa;
+  --color-brand-dark: #003f94;
+  --color-text: #000;
+  --color-text-inverted: #fcfcfd;
+  --color-text-muted: #6f6f6f;
+  --color-gray-100: #131619;
+  --color-gray-80: #353a3e;
+  --color-gray-40: #a3a9af;
+  --color-divider: #e9e9e9;
+  --color-border-field: #c2c7cc;
+  --color-border-card: #dfdfdf;
+  --color-checkbox-stroke: #696f74;
+  --color-surface-quote: #f2f4f8;
+  --color-surface-placeholder: #f0f0f0;
+  --color-card-blue: #c7e3ff;
+  --color-card-yellow: #f8ea90;
+  --color-card-green: #bff3cc;
+  --color-card-purple: #e8d7fd;
+
+  /* Typography */
+  --font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --tracking-regular: 0.2px;
+  --tracking-relaxed: 0.4px;
+  --tracking-button: 1.2px;
+
+  /* Radius & elevation */
+  --radius-small: 4px;
+  --radius-card: 32px;
+  --shadow-accent: 0 1px 2px rgba(0, 0, 0, 0.03);
+
+  /* Layout — horizontal page padding scales from 128px @1440 down to 20px */
+  --page-pad: clamp(20px, 8.9vw, 128px);
+  --page-pad-narrow: clamp(20px, 4.45vw, 64px);
+  --content-max: 1184px;
+
+  --dot-pattern: url("../assets/images/dot-pattern.png") top left / 14px 14px;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: var(--tracking-regular);
+  color: var(--color-text);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3, p, ul, figure, blockquote {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+section[id] {
+  scroll-margin-top: 16px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+/* Button / Brand */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 12px 20px;
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-small);
+  font: 500 14px/16px var(--font-family);
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-accent);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn--brand {
+  background: var(--color-brand);
+  color: var(--color-text-inverted);
+}
+
+.btn--brand:hover {
+  background: #0058cf;
+  border-color: #0058cf;
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-brand);
+}
+
+.btn--outline:hover {
+  background: rgba(0, 107, 250, 0.06);
+}
+
+/* Unify logo — composed of the exact vector parts exported from Figma */
+.unify-logo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.unify-logo--nav {
+  width: 96px;
+  height: 26px;
+}
+
+.unify-logo__part {
+  position: absolute;
+  max-width: none;
+}
+
+/* Parts are placed in % of the logo box (same layout as the Figma component) */
+.unify-logo__part--1  { top: 22.35%; left: 85.44%; width: 14.39%; height: 77.65%; }
+.unify-logo__part--2  { top: 0;      left: 75.54%; width: 9.46%;  height: 78.82%; }
+.unify-logo__part--3  { top: 0.51%;  left: 70.18%; width: 3.79%;  height: 78.31%; }
+.unify-logo__part--4  { top: 21.62%; left: 54.37%; width: 12.85%; height: 57.2%; }
+.unify-logo__part--5  { top: 3.53%;  left: 34.47%; width: 16.32%; height: 76.54%; }
+.unify-logo__part--6  { top: 9.33%;  left: 0;      width: 4.02%;  height: 50.49%; }
+.unify-logo__part--7  { top: 59.82%; left: 4.02%;  width: 9.18%;  height: 14.73%; }
+.unify-logo__part--8  { top: 9.33%;  left: 13.2%;  width: 4.01%;  height: 50.49%; }
+.unify-logo__part--9  { top: 49.3%;  left: 4.02%;  width: 2.86%;  height: 10.52%; }
+.unify-logo__part--10 { top: 59.82%; left: 0;      width: 4.02%;  height: 14.73%; }
+
+/* Shared headings */
+.section-title {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: -1px;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.section-header__lead {
+  max-width: 700px;
+  line-height: 28px;
+}
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+.navbar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px var(--page-pad-narrow);
+}
+
+.navbar__logo {
+  flex-shrink: 0;
+}
+
+.navbar__menu {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
+}
+
+.navbar__link {
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar__link:hover {
+  color: var(--color-brand);
+}
+
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 10px 8px;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: transparent;
+  cursor: pointer;
+}
+
+.navbar__toggle-bar {
+  display: block;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 1px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar[data-open] .navbar__toggle-bar:nth-child(2) { transform: translateY(7px) rotate(45deg); }
+.navbar[data-open] .navbar__toggle-bar:nth-child(3) { opacity: 0; }
+.navbar[data-open] .navbar__toggle-bar:nth-child(4) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  display: flex;
+  gap: clamp(40px, 8.9vw, 128px);
+  align-items: flex-start;
+  padding: 64px clamp(20px, 3.05vw, 44px) 64px var(--page-pad-narrow);
+}
+
+.hero__content {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+  padding-top: 56px;
+}
+
+.hero__title {
+  font-size: clamp(44px, 5vw, 72px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  /* Approximation of the Figma conic text fill: black fading to slate towards the lower right */
+  background: linear-gradient(105deg, #000 0%, #04050a 48%, #1f2736 62%, #48567c 82%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__subtitle {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.hero__art {
+  position: relative;
+  flex: 0 1 637px;
+  aspect-ratio: 637 / 510;
+}
+
+/* Every art item is positioned in % of the 637×510 Figma frame */
+.hero__art-bg {
+  position: absolute;
+  top: 0;
+  left: 8.762%;
+  width: 88.07%;
+  height: 100%;
+  border-radius: 30px;
+  background: var(--dot-pattern);
+}
+
+.hero__art-item {
+  position: absolute;
+  height: auto;
+  max-width: none;
+}
+
+.hero__art-item--9316 { left: 22.253%; top: 72.353%; width: 8.240%; }
+.hero__art-item--9319 { left: 88.383%; top: 57.620%; width: 11.711%; }
+.hero__art-item--9324 { left: -0.079%; top: 83.420%; width: 14.379%; }
+.hero__art-item--9329 { left: 52.818%; top: 12.188%; width: 10.442%; }
+.hero__art-item--9334 { left: 80.801%; top: 6.359%;  width: 10.752%; }
+.hero__art-item--9338 { left: 4.507%;  top: 54.382%; width: 14.391%; }
+.hero__art-item--9349 { left: 18.360%; top: 6.359%;  width: 72.349%; }
+
+/* Collaborator cursors ("Cursor" layers in Figma) drift around the canvas.
+   Offsets use cqw so the movement scales with the illustration. */
+.hero__art {
+  container-type: inline-size;
+}
+
+.hero__cursor {
+  z-index: 1;
+  animation: 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero__art-item--9329 { animation-name: cursor-business-leader; animation-duration: 18s; }
+.hero__art-item--9319 { animation-name: cursor-enterprise-architect; animation-duration: 22s; animation-delay: -8s; }
+.hero__art-item--9324 { animation-name: cursor-transformation-leader; animation-duration: 20s; animation-delay: -13s; }
+
+/* Paths stay within the dotted canvas (1cqw ≈ 6.4px at full size) */
+@keyframes cursor-business-leader {
+  0%, 100% { transform: translate(0, 0); }
+  18%      { transform: translate(-12cqw, 5cqw); }
+  26%      { transform: translate(-12cqw, 5cqw); }  /* short pause, like someone reading */
+  45%      { transform: translate(-4cqw, 16cqw); }
+  62%      { transform: translate(10cqw, 12cqw); }
+  70%      { transform: translate(10cqw, 12cqw); }
+  86%      { transform: translate(6cqw, 3cqw); }
+}
+
+@keyframes cursor-enterprise-architect {
+  0%, 100% { transform: translate(0, 0); }
+  20%      { transform: translate(-14cqw, -10cqw); }
+  28%      { transform: translate(-14cqw, -10cqw); }
+  50%      { transform: translate(-24cqw, 3cqw); }
+  72%      { transform: translate(-10cqw, 8cqw); }
+  80%      { transform: translate(-10cqw, 8cqw); }
+}
+
+@keyframes cursor-transformation-leader {
+  0%, 100% { transform: translate(0, 0); }
+  22%      { transform: translate(12cqw, -8cqw); }
+  30%      { transform: translate(12cqw, -8cqw); }
+  52%      { transform: translate(22cqw, 3cqw); }
+  74%      { transform: translate(8cqw, -16cqw); }
+  82%      { transform: translate(8cqw, -16cqw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cursor {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Logos
+   ========================================================================== */
+.logos {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0 var(--page-pad);
+  opacity: 0.8;
+}
+
+.logos__title {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-muted);
+}
+
+.logos__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 clamp(0px, 4.45vw, 64px);
+}
+
+.logos__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 147px;
+  height: 80px;
+}
+
+/* ==========================================================================
+   Collaboration
+   ========================================================================== */
+.collab {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding: 128px var(--page-pad);
+}
+
+.collab__image {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  aspect-ratio: 1184 / 571;
+}
+
+.collab__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.usps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.usp {
+  display: flex;
+  flex-direction: column;
+  min-height: 188px;
+}
+
+.usp__icon {
+  margin-bottom: 24px;
+}
+
+.usp__title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
+.usp__text {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   How it works
+   ========================================================================== */
+.how {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  /* Narrower than other sections: 216px @1440 → 1008px wide cards */
+  padding: 72px clamp(20px, 15vw, 216px);
+}
+
+.how__title {
+  text-align: center;
+}
+
+.how__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.step-card {
+  display: flex;
+  align-items: stretch;
+  padding: 16px 16px 16px 56px;
+  border-radius: var(--radius-card);
+}
+
+/* Stacking cards: each card sticks 24px lower than the previous one,
+   so the top edges of the cards underneath stay visible. */
+.how__cards {
+  --stack-top: 24px;
+  --stack-step: 24px;
+}
+
+.step-card {
+  position: sticky;
+  top: calc(var(--stack-top) + var(--i, 0) * var(--stack-step));
+  transform-origin: center top;
+  will-change: transform;
+}
+
+.step-card:nth-child(2) { --i: 1; }
+.step-card:nth-child(3) { --i: 2; }
+.step-card:nth-child(4) { --i: 3; }
+
+.step-card + .step-card {
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Not enough room to stack (short viewports) — fall back to a normal list */
+@media (max-height: 640px) {
+  .step-card {
+    position: static;
+    transform: none !important;
+  }
+
+  .step-card + .step-card {
+    box-shadow: none;
+  }
+}
+
+.step-card--blue   { background: var(--color-card-blue); }
+.step-card--yellow { background: var(--color-card-yellow); }
+.step-card--green  { background: var(--color-card-green); }
+.step-card--purple { background: var(--color-card-purple); }
+
+.step-card__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  min-width: 0;
+}
+
+.step-card__title {
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.step-card__body {
+  max-width: 448px;
+  color: var(--color-gray-100);
+  letter-spacing: 0;
+}
+
+.step-card__image {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: content-box;
+  padding: 10px;
+}
+
+.step-card__image img {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Feature rows (text + image)
+   ========================================================================== */
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 64px clamp(20px, 11.4vw, 164px) 64px var(--page-pad);
+}
+
+.feature--reverse {
+  padding: 64px var(--page-pad) 64px clamp(20px, 12.8vw, 184px);
+}
+
+.feature__image {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  aspect-ratio: 707.52 / 583.05;
+}
+
+.feature__image--placeholder {
+  background: var(--color-surface-placeholder);
+}
+
+.feature__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.feature__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 40px;
+  min-width: 0;
+  padding: 40px 0 24px;
+}
+
+.feature__title {
+  padding-right: 64px;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0;
+}
+
+.feature__list li {
+  padding: 24px 80px 24px 0;
+  border-top: 1px solid var(--color-divider);
+  line-height: 28px;
+}
+
+/* ==========================================================================
+   Integrations
+   ========================================================================== */
+.integrations {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  padding: 96px var(--page-pad);
+}
+
+/* Orbit illustration — items positioned in % of the 400×393.64 Figma frame */
+.orbit {
+  position: relative;
+  flex: 0 0 400px;
+  aspect-ratio: 400 / 393.64;
+}
+
+.orbit__item {
+  position: absolute;
+  height: auto;
+  max-width: none;
+}
+
+/* Core */
+.orbit__core-bg { left: 30.738%; top: 30.835%; width: 37.053%; }
+.orbit__logo    { left: 42.923%; top: 48.549%; width: 13.302%; aspect-ratio: 53.207 / 14.898; }
+
+/* Circles — dashed rings rotating very slowly.
+   Circle-1 and Circle-3 turn left (counter-clockwise), Circle-2 turns right. */
+.orbit__circle {
+  animation: orbit-spin-left linear infinite;
+}
+
+.orbit__circle--1 { left: 21.979%; top: 21.616%; width: 55.191%; animation-duration: 320s; }
+.orbit__circle--2 { left: 11.515%; top: 11.864%; width: 75.377%; animation-duration: 400s; animation-name: orbit-spin-right; }
+.orbit__circle--3 { left: 0;       top: 0;       width: 98.411%; animation-duration: 480s; }
+
+/* Element tracks — a square layer matching its circle, rotating around the
+   circle centre so the element rides the ring. Elements travel opposite to
+   their circle; the element itself counter-rotates to stay upright. */
+.orbit__track {
+  position: absolute;
+  aspect-ratio: 1;
+  animation: orbit-spin-right var(--duration) linear infinite;
+}
+
+.orbit__track--1 { left: 21.979%; top: 21.616%; width: 55.191%; }
+.orbit__track--2 { left: 11.515%; top: 11.864%; width: 75.377%; animation-name: orbit-spin-left; }
+
+.orbit__el {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+  animation: orbit-spin-left var(--duration) linear infinite;
+}
+
+.orbit__track--2 .orbit__el { animation-name: orbit-spin-right; }
+
+/* Element positions in % of their circle's box (Figma coordinates) */
+.orbit__el--miro         { left: 74.324%;  top: 13.689%; width: 23.555%; height: 8.606%; }
+.orbit__el--servicenow   { left: -13.100%; top: 50.380%; width: 24.913%; height: 4.530%; }
+.orbit__el--c1-dot       { left: 82.237%;  top: 80.728%; width: 7.580%;  height: auto; }
+.orbit__el--jira         { left: 46.413%;  top: 97.049%; width: 14.925%; height: 5.307%; }
+.orbit__el--c2-dot-right { left: 96.925%;  top: 52.446%; width: 5.550%;  height: auto; }
+.orbit__el--c2-dot-top   { left: 11.794%;  top: 10.789%; width: 5.550%;  height: auto; }
+.orbit__el--c2-dot-bottom{ left: 16.424%;  top: 85.954%; width: 5.550%;  height: auto; }
+
+/* Logos are cropped inside their frame (Figma image crop) */
+span.orbit__el {
+  overflow: hidden;
+}
+
+span.orbit__el img {
+  position: absolute;
+  max-width: none;
+}
+
+.orbit__el--miro img       { left: -0.13%; top: -27.38%;  width: 99.64%;  height: 153.39%; }
+.orbit__el--servicenow img { left: 0.13%;  top: -118.45%; width: 99.51%;  height: 344.27%; }
+.orbit__el--jira img       { left: -0.87%; top: -97.12%;  width: 102.84%; height: 289.24%; }
+
+/* Circle-3 elements: one flattened group, rotated around Circle-3's centre */
+.orbit__c3-elements {
+  left: 0.010%;
+  top: 1.438%;
+  width: 99.989%;
+  transform-origin: 49.200% 49.376%;
+  animation: orbit-spin-right 300s linear infinite;
+}
+
+@keyframes orbit-spin-left {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes orbit-spin-right {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit__circle,
+  .orbit__track,
+  .orbit__el,
+  .orbit__c3-elements {
+    animation: none;
+  }
+}
+
+.integrations__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  align-self: stretch;
+  min-width: 0;
+  padding-top: 80px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.integrations__title {
+  margin-bottom: -8px; /* title → body gap is 24px, rest of the column is 32px */
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: -0.96px;
+}
+
+.integrations__body {
+  letter-spacing: 0;
+}
+
+/* ==========================================================================
+   Team work
+   ========================================================================== */
+.team {
+  padding: 80px var(--page-pad);
+}
+
+.team__card {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 96px 56px 80px clamp(24px, 7.2vw, 104px);
+  border-radius: var(--radius-card);
+  background: var(--dot-pattern);
+}
+
+.team__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 64px;
+  min-width: 0;
+}
+
+.team__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.team__items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.team__title {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 44px;
+}
+
+.team__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.team__diagram-wrap {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Collaboration diagram — each "Cursor" group (pill + arrow) is placed with
+   left in % of the 488px Figma width and top in px; children use px offsets. */
+.team__diagram {
+  position: relative;
+  width: 100%;
+  max-width: 488px;
+  height: 146px;
+}
+
+.team-cursor {
+  position: absolute;
+  z-index: 1;
+  animation: 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.team-cursor--solution        { left: 3.137%;  top: 81.93px; }
+.team-cursor--enterprise      { left: 0;       top: 0; }
+.team-cursor--business-arch   { left: 55.719%; top: 100.84px; }
+.team-cursor--business-user   { left: 75.646%; top: 40.52px; }
+.team-cursor--business-leader { left: 49.262%; top: 9.9px; }
+
+.team-cursor__arrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotated 18×16.2 arrow box, as in Figma */
+.team-cursor__arrow > span {
+  position: relative;
+  flex: none;
+  width: 18.007px;
+  height: 16.207px;
+  transform: rotate(var(--rotate));
+}
+
+.team-cursor__arrow img {
+  position: absolute;
+  inset: 5.23% 4.97% 3.75%;
+  width: 90.06%;
+  height: 91.02%;
+  max-width: none;
+}
+
+.team-cursor--solution .team-cursor__arrow        { left: 113.45px; top: 0;       width: 23.039px; height: 23.698px; }
+.team-cursor--enterprise .team-cursor__arrow      { left: 142.77px; top: 20.03px; width: 23.535px; height: 24.008px; }
+.team-cursor--business-arch .team-cursor__arrow   { left: 0;        top: 0;       width: 20.335px; height: 18.841px; }
+.team-cursor--business-user .team-cursor__arrow   { left: 0;        top: 7.2px;   width: 18.795px; height: 20.296px; }
+.team-cursor--business-leader .team-cursor__arrow { left: 0;        top: 24.31px; width: 21.61px;  height: 20.341px; }
+
+.role {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.048px;
+  white-space: nowrap;
+}
+
+.role--solution        { left: 0;       top: 13.51px; background: rgba(233, 0, 253, 0.3);  border-color: #e900fd; }
+.role--enterprise      { left: 0;       top: 0;       background: rgba(253, 167, 0, 0.35); border-color: #fda700; }
+.role--business-arch   { left: 6.3px;   top: 22.51px; background: rgba(0, 223, 253, 0.3);  border-color: #00dffd; }
+.role--business-user   { left: 25.21px; top: 0;       background: rgba(253, 46, 0, 0.2);   border-color: #fd2e00; }
+.role--business-leader { left: 11.71px; top: 0;       background: rgba(0, 253, 71, 0.3);   border-color: #00fd47; }
+
+/* Pills with a fixed size in Figma (the others hug their text) */
+.role--solution,
+.role--business-arch,
+.role--business-user {
+  height: 20.709px;
+  padding-inline: 0;
+}
+
+.role--solution      { width: 113.447px; }
+.role--business-arch { width: 117.048px; }
+.role--business-user { width: 93.639px; }
+
+/* Slow, small drifts — each cursor hovers around its spot near the button */
+.team-cursor--solution        { animation-name: team-cursor-solution;        animation-duration: 19s; }
+.team-cursor--enterprise      { animation-name: team-cursor-enterprise;      animation-duration: 22s; animation-delay: -6s; }
+.team-cursor--business-arch   { animation-name: team-cursor-business-arch;   animation-duration: 20s; animation-delay: -11s; }
+.team-cursor--business-user   { animation-name: team-cursor-business-user;   animation-duration: 24s; animation-delay: -3s; }
+.team-cursor--business-leader { animation-name: team-cursor-business-leader; animation-duration: 21s; animation-delay: -15s; }
+
+@keyframes team-cursor-solution {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(10px, -6px); }
+  35%      { transform: translate(10px, -6px); }
+  60%      { transform: translate(18px, 2px); }
+  80%      { transform: translate(6px, 5px); }
+}
+
+@keyframes team-cursor-enterprise {
+  0%, 100% { transform: translate(0, 0); }
+  22%      { transform: translate(12px, 6px); }
+  45%      { transform: translate(20px, 2px); }
+  55%      { transform: translate(20px, 2px); }
+  78%      { transform: translate(6px, 9px); }
+}
+
+@keyframes team-cursor-business-arch {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-12px, -5px); }
+  48%      { transform: translate(-4px, -10px); }
+  58%      { transform: translate(-4px, -10px); }
+  80%      { transform: translate(8px, -4px); }
+}
+
+@keyframes team-cursor-business-user {
+  0%, 100% { transform: translate(0, 0); }
+  20%      { transform: translate(-12px, 5px); }
+  30%      { transform: translate(-12px, 5px); }
+  55%      { transform: translate(-6px, -7px); }
+  78%      { transform: translate(-16px, -2px); }
+}
+
+@keyframes team-cursor-business-leader {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-10px, 3px); }
+  50%      { transform: translate(6px, -4px); }
+  60%      { transform: translate(6px, -4px); }
+  82%      { transform: translate(12px, 2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-cursor {
+    animation: none;
+  }
+}
+
+.create-btn {
+  position: absolute;
+  left: 38.504%;
+  top: 48.62px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36.015px;
+  padding: 8px 24px 8px 16px;
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-small);
+  background: var(--color-brand);
+  box-shadow: 0 4px 4px #dee1e5;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+}
+
+.create-btn img {
+  width: 24px;
+}
+
+/* ==========================================================================
+   Testimonials
+   ========================================================================== */
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 128px var(--page-pad) 216px;
+}
+
+.testimonials__title {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: 0;
+  color: var(--color-gray-80);
+  text-align: center;
+}
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+  width: 100%;
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 360px;
+  padding: 32px 32px 24px;
+  background: var(--color-surface-quote);
+}
+
+.quote__logo {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.quote__person {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 15.1px;
+  line-height: 22.4px;
+  letter-spacing: -0.32px;
+}
+
+.quote__role {
+  color: var(--color-gray-40);
+}
+
+/* ==========================================================================
+   Trial request
+   ========================================================================== */
+.trial {
+  padding: 96px clamp(20px, 12.8vw, 184px);
+  background:
+    linear-gradient(154deg, rgba(0, 107, 250, 0.72) 0%, rgba(0, 107, 250, 0.96) 26%, var(--color-brand-dark) 86%),
+    var(--dot-pattern);
+}
+
+.trial__card {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 40px 40px 40px 64px;
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-card);
+  background: linear-gradient(126deg, #f4f8ff 0%, #fff 80%);
+}
+
+.trial__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+  min-height: 364px;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.trial__title {
+  margin-bottom: 4px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 48px;
+}
+
+.trial__form {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+  padding: 16px 40px 0;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row > .field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: var(--tracking-relaxed);
+}
+
+.field__input {
+  width: 100%;
+  height: 38px;
+  padding: 4px 6px 4px 12px;
+  border: 1px solid var(--color-border-field);
+  border-radius: var(--radius-small);
+  background: #fff;
+  color: var(--color-text);
+  font: 400 14px/20px var(--font-family);
+  letter-spacing: var(--tracking-regular);
+}
+
+.field__input:hover {
+  border-color: #9aa1a8;
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(0, 107, 250, 0.15);
+}
+
+.field__input[aria-invalid="true"] {
+  border-color: #d92d20;
+}
+
+.field__input--select {
+  padding-right: 34px;
+  appearance: none;
+  background: #fff url("../assets/icons/chevron.svg") no-repeat right 14px center / 12px 12px;
+  cursor: pointer;
+}
+
+.field__help {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-text-muted);
+}
+
+.field__error {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: #d92d20;
+}
+
+.field__input::placeholder {
+  color: var(--color-gray-40);
+}
+
+.field[hidden] {
+  display: none;
+}
+
+/* Searchable select (combobox) */
+.combobox {
+  position: relative;
+}
+
+.combobox .field__input {
+  cursor: text;
+}
+
+/* Select-only variant: behaves like a button, not a text field */
+.combobox .combobox__input--static {
+  cursor: pointer;
+  caret-color: transparent;
+  user-select: none;
+}
+
+.combobox__native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.combobox__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 240px;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  border: 1px solid var(--color-border-field);
+  border-radius: var(--radius-small);
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  list-style: none;
+}
+
+.combobox__option,
+.combobox__empty {
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.combobox__option {
+  cursor: pointer;
+}
+
+.combobox__option strong {
+  font-weight: 600;
+}
+
+.combobox__option.is-active {
+  background: var(--color-surface-quote);
+}
+
+.combobox__option[aria-selected="true"] {
+  color: var(--color-brand);
+}
+
+.combobox__empty {
+  color: var(--color-text-muted);
+}
+
+.form-ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 12px;
+  padding: 6px 0;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.checkbox__label {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.checkbox__label a {
+  color: var(--color-brand);
+}
+
+.checkbox .field__error {
+  flex-basis: 100%;
+  margin-left: 32px;
+}
+
+.checkbox__input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--color-checkbox-stroke);
+  border-radius: var(--radius-small);
+  background: #fff;
+  appearance: none;
+  cursor: pointer;
+}
+
+.checkbox__input:checked {
+  border-color: var(--color-brand);
+  background: var(--color-brand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.5l4.5-5' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+
+.form-status {
+  font-size: 14px;
+  line-height: 20px;
+  text-align: right;
+}
+
+.form-status:empty {
+  display: none;
+}
+
+.form-status[data-state="error"] {
+  color: #d92d20;
+}
+
+.form-status[data-state="success"] {
+  color: #067647;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* Small desktop / tablet landscape */
+@media (max-width: 1199px) {
+  .feature__title,
+  .feature__list li {
+    padding-right: 0;
+  }
+
+  .integrations {
+    gap: 48px;
+  }
+
+  .orbit {
+    flex-basis: 320px;
+  }
+
+  .team__card {
+    padding-right: 32px;
+  }
+
+  .quotes {
+    gap: 24px;
+  }
+
+  .trial__card {
+    gap: 40px;
+    padding-left: 40px;
+  }
+
+  .trial__form {
+    padding: 0;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin: 0;
+    padding: 8px var(--page-pad-narrow) 24px;
+    background: #fff;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .navbar[data-open] .navbar__menu {
+    display: flex;
+  }
+
+  .navbar__nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;
+  }
+
+  .navbar__link {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 48px;
+    padding-top: 32px;
+    padding-right: var(--page-pad-narrow);
+  }
+
+  /* Columns that stack vertically must not keep a zero flex-basis */
+  .hero__content,
+  .step-card__text,
+  .step-card__image,
+  .feature__text,
+  .integrations__text,
+  .team__text,
+  .team__diagram-wrap,
+  .trial__text,
+  .trial__form {
+    flex: none;
+  }
+
+  .hero__content {
+    padding-top: 0;
+  }
+
+  .hero__art {
+    flex: none;
+    width: 100%;
+    max-width: 637px;
+    margin: 0 auto;
+  }
+
+  .logos__row {
+    justify-content: center;
+  }
+
+  .collab {
+    gap: 40px;
+    padding: 80px var(--page-pad);
+  }
+
+  .usps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .usp {
+    min-height: 0;
+  }
+
+  .how {
+    padding: 72px var(--page-pad);
+  }
+
+  .step-card {
+    flex-direction: column;
+    gap: 24px;
+    padding: 40px 16px 16px;
+  }
+
+  .step-card__text {
+    padding: 0 24px;
+  }
+
+  .feature,
+  .feature--reverse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+    padding: 40px var(--page-pad);
+  }
+
+  .feature--reverse .feature__image {
+    order: -1;
+  }
+
+  .feature__image {
+    flex: none;
+    width: 100%;
+  }
+
+  .feature__text {
+    padding: 0;
+  }
+
+  .integrations {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 64px var(--page-pad);
+  }
+
+  .orbit {
+    flex: none;
+    width: min(100%, 400px);
+    margin: 0 auto;
+  }
+
+  .integrations__text {
+    padding-top: 40px;
+  }
+
+  .team {
+    padding: 48px var(--page-pad);
+  }
+
+  .team__card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 48px;
+    padding: 48px 32px;
+  }
+
+  .team__text {
+    gap: 40px;
+  }
+
+  .team__diagram {
+    margin: 0 auto;
+  }
+
+  .testimonials {
+    padding: 80px var(--page-pad) 120px;
+  }
+
+  .quotes {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 560px;
+  }
+
+  .quote {
+    min-height: 280px;
+  }
+
+  .trial {
+    padding: 64px var(--page-pad);
+  }
+
+  .trial__card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 40px;
+  }
+
+  .trial__text {
+    min-height: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .section-title,
+  .feature__title,
+  .integrations__title,
+  .team__title,
+  .trial__title {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .testimonials__title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .hero__art-bg {
+    border-radius: 20px;
+  }
+
+  .logos__row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .logos__box {
+    width: auto;
+  }
+
+  .collab__image {
+    border-radius: 20px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .usp__title {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .step-card {
+    border-radius: 24px;
+    padding: 32px 8px 8px;
+  }
+
+  .step-card__text {
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .step-card__title {
+    font-size: 26px;
+  }
+
+  .step-card__image {
+    padding: 0;
+  }
+
+  .team__card {
+    padding: 40px 20px;
+    border-radius: 24px;
+  }
+
+  /* Keep the diagram's proportions by scaling it as a whole */
+  .team__diagram-wrap {
+    overflow: hidden;
+  }
+
+  .team__diagram {
+    width: 488px;
+    zoom: 0.58;
+  }
+
+  .trial__card {
+    padding: 32px 20px;
+    border-radius: 24px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-ctas {
+    align-items: stretch;
+  }
+
+  .form-ctas .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
