@@ -1,3 +1,59 @@
+// Analytics (PostHog) — custom events on top of PostHog's pageviews and autocapture.
+// Safe when PostHog is blocked: track() then does nothing.
+const track = (event, properties = {}) => {
+  try {
+    if (window.posthog && typeof window.posthog.capture === 'function') {
+      window.posthog.capture(event, properties);
+    }
+  } catch (e) { /* never let analytics break the page */ }
+};
+
+(function () {
+  // Clicks on elements with data-track="event_name"; data-track-* attributes become properties
+  document.addEventListener('click', (event) => {
+    const el = event.target.closest('[data-track]');
+    if (!el) return;
+    const properties = { label: el.textContent.trim() };
+    Object.entries(el.dataset).forEach(([key, value]) => {
+      if (key.startsWith('track') && key !== 'track') {
+        const name = key.slice(5).replace(/^./, (c) => c.toLowerCase()).replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
+        properties[name] = value;
+      }
+    });
+    track(el.dataset.track, properties);
+  });
+
+  // section_viewed: once per section per page view, when at least 40% is visible
+  if (!('IntersectionObserver' in window)) return;
+  const seen = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const name = entry.target.dataset.section;
+      if (!entry.isIntersecting || seen.has(name)) return;
+      seen.add(name);
+      observer.unobserve(entry.target);
+      track('section_viewed', { section: name });
+    });
+  }, { threshold: 0.4 });
+  // Tall sections can never be 40% visible on small screens; also count them once their top half is on screen
+  const tallObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRect.height > window.innerHeight * 0.5) {
+        const name = entry.target.dataset.section;
+        if (seen.has(name)) return;
+        seen.add(name);
+        observer.unobserve(entry.target);
+        tallObserver.unobserve(entry.target);
+        track('section_viewed', { section: name });
+      }
+    });
+  }, { threshold: [0, 0.1, 0.2, 0.3] });
+  document.querySelectorAll('[data-section]').forEach((section) => {
+    observer.observe(section);
+    tallObserver.observe(section);
+  });
+})();
+
 // Mobile navigation toggle
 (function () {
   const navbar = document.querySelector('[data-navbar]');
@@ -102,6 +158,7 @@
     input.type = 'text';
     input.className = select.className;
     input.id = select.id;
+    input.dataset.fieldName = select.name; // the real form field name, e.g. for analytics
     input.required = select.required;
     input.autocomplete = 'off';
     input.spellcheck = false;
@@ -356,20 +413,19 @@
     }
   };
 
-  // --- Attribution: last touch from the URL, first touch remembered ----------
+  // --- Attribution from the landing URL --------------------------------------
+  // Cookieless: nothing is stored in the browser, so first and last touch are both
+  // taken from the URL of this visit.
   const TRACKING = ['gclid', 'msclkid', 'utm_campaign', 'utm_content', 'utm_medium', 'utm_source', 'utm_term'];
   const params = new URLSearchParams(window.location.search);
-  let firstTouch = {};
-  try { firstTouch = JSON.parse(localStorage.getItem('unify_first_touch') || '{}'); } catch (e) { /* storage unavailable */ }
 
   TRACKING.forEach((key) => {
     const value = params.get(key);
-    if (value && !firstTouch[key]) firstTouch[key] = value;
+    if (!value) return;
     const lastName = key.startsWith('utm_') ? key : `last_${key}`;
-    if (form.elements[lastName] && value) form.elements[lastName].value = value;
-    if (form.elements[`first_${key}`]) form.elements[`first_${key}`].value = firstTouch[key] || value || '';
+    if (form.elements[lastName]) form.elements[lastName].value = value;
+    if (form.elements[`first_${key}`]) form.elements[`first_${key}`].value = value;
   });
-  try { localStorage.setItem('unify_first_touch', JSON.stringify(firstTouch)); } catch (e) { /* storage unavailable */ }
 
   // --- Validation with the same messages as the Bizzdesign form --------------
   const fields = Array.from(form.querySelectorAll('.field__input, .checkbox__input'));
@@ -436,11 +492,16 @@
   country.addEventListener('change', toggleState);
   toggleState();
 
+  // trial_form_started: first interaction with any field
+  form.addEventListener('focusin', () => track('trial_form_started'), { once: true });
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const invalid = fields.filter((field) => !validateField(field));
     if (invalid.length) {
+      // Field names only — never what was typed
+      track('trial_form_error', { fields: invalid.map((field) => field.name || field.dataset.fieldName || field.id) });
       status.dataset.state = 'error';
       status.textContent = 'Please correct the highlighted fields.';
       invalid[0].focus();
@@ -460,11 +521,20 @@
         const response = await fetch(endpoint, { method: 'POST', body: data });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
       } catch (error) {
+        track('trial_form_submit_failed', { reason: String(error.message || error) });
         status.dataset.state = 'error';
         status.textContent = 'Something went wrong while sending your request. Please try again.';
         return;
       }
     }
+
+    // No personal data (name, email, company) in analytics
+    track('trial_form_submitted', {
+      country: data.get('country') || '',
+      state: data.get('state') || '',
+      storage_location: data.get('unify_trial_hosting_region') || '',
+      marketing_opt_in: data.get('opt_in_consent') === '1',
+    });
 
     status.dataset.state = 'success';
     status.textContent = 'Thanks! We’ll get your trial workspace ready and email you shortly.';

@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Unify by Bizzdesign — Make better transformation decisions. Faster.</title>
   <meta name="description" content="No more concessions between speed and control. Throw in any data, structure it only when it counts.">
+  <!-- PostHog analytics. Cookieless (persistence: 'memory'): nothing is stored in the browser,
+       so no consent banner is needed. Custom events are sent from js/main.js (see "Analytics"). -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="gu mu yu bu ku init Vu Gu zu Uu Ku el Wu Yu ju rh oh ah uh hh dh capture getExtension Zu fu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh Su xu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug il Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_GsXYjP2DNSIFadysuOvDVOGyatwDaEQA8x9GiCYqZ7a', {
+      api_host: 'https://t.svc.unify.cloud', // managed reverse proxy
+      ui_host: 'https://eu.posthog.com', // links in PostHog point back to the EU app
+      defaults: '2026-05-30',
+      person_profiles: 'identified_only',
+      persistence: 'memory', // cookieless: no cookies or localStorage
+    })
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -38,22 +50,22 @@
 
     <div class="navbar__menu" id="primary-nav" data-nav-menu>
       <nav class="navbar__nav" aria-label="Primary">
-        <a class="navbar__link" href="#how-it-works">How it works</a>
-        <a class="navbar__link" href="#solutions">Solutions</a>
-        <a class="navbar__link" href="#customers">Customers</a>
+        <a class="navbar__link" href="#how-it-works" data-track="nav_clicked" data-track-target="how-it-works">How it works</a>
+        <a class="navbar__link" href="#solutions" data-track="nav_clicked" data-track-target="solutions">Solutions</a>
+        <a class="navbar__link" href="#customers" data-track="nav_clicked" data-track-target="customers">Customers</a>
       </nav>
-      <a class="btn btn--brand navbar__cta" href="#trial">Start free trial</a>
+      <a class="btn btn--brand navbar__cta" href="#trial" data-track="cta_clicked" data-track-location="nav">Start free trial</a>
     </div>
   </header>
 
   <main id="top">
 
     <!-- Hero -->
-    <section class="hero">
+    <section data-section="hero" class="hero">
       <div class="hero__content">
         <h1 class="hero__title">Make better transformation decisions. Faster.</h1>
         <p class="hero__subtitle">From design to build-ready decisions. No more concessions between speed and control. Throw in any data, structure it only when it counts.</p>
-        <a class="btn btn--brand" href="#trial">Start free trial</a>
+        <a class="btn btn--brand" href="#trial" data-track="cta_clicked" data-track-location="hero">Start free trial</a>
       </div>
       <div class="hero__art" aria-hidden="true">
         <div class="hero__art-bg"></div>
@@ -68,7 +80,7 @@
     </section>
 
     <!-- Client logos -->
-    <section class="logos" aria-labelledby="logos-title">
+    <section data-section="logos" class="logos" aria-labelledby="logos-title">
       <p class="logos__title" id="logos-title">Trusted by:</p>
       <ul class="logos__row">
         <li class="logos__box"><img src="assets/clients/sony.svg" width="79" height="13" alt="Sony"></li>
@@ -81,7 +93,7 @@
     </section>
 
     <!-- Collaboration -->
-    <section class="collab">
+    <section data-section="collaboration" class="collab">
       <header class="section-header">
         <h2 class="section-title">Meet the intelligent Workspace</h2>
         <p class="section-header__lead">Unify is built not only for architects, but also for business leaders, project teams, and domain experts. Everyone shaping change, together in the same space.</p>
@@ -109,7 +121,7 @@
     </section>
 
     <!-- How it works -->
-    <section class="how" id="how-it-works">
+    <section data-section="how-it-works" class="how" id="how-it-works">
       <h2 class="section-title how__title">Explore freely. Get structured only when needed.</h2>
       <div class="how__cards">
         <article class="step-card step-card--blue">
@@ -152,7 +164,7 @@
     </section>
 
     <!-- Feature: Decide with confidence -->
-    <section class="feature" id="solutions">
+    <section data-section="decide-with-confidence" class="feature" id="solutions">
       <div class="feature__image feature__image--placeholder" aria-hidden="true"></div>
       <div class="feature__text">
         <h2 class="feature__title">Decide with confidence.</h2>
@@ -165,7 +177,7 @@
     </section>
 
     <!-- Feature: AI coworker -->
-    <section class="feature feature--reverse">
+    <section data-section="ai-coworker" class="feature feature--reverse">
       <div class="feature__text">
         <h2 class="feature__title">10x your team with a context aware AI coworker.</h2>
         <ul class="feature__list">
@@ -180,7 +192,7 @@
     </section>
 
     <!-- Integrations -->
-    <section class="integrations">
+    <section data-section="integrations" class="integrations">
       <div class="orbit" aria-hidden="true">
         <!-- Core -->
         <img class="orbit__item orbit__core-bg" src="assets/integrations/core-bg.png" alt="">
@@ -233,12 +245,12 @@
       <div class="integrations__text">
         <h2 class="integrations__title">Start with just enough data.</h2>
         <p class="integrations__body">Integrations and on-the-fly connections get you moving fast. Repository access is there when you want it, not a prerequisite to start.</p>
-        <a class="btn btn--brand" href="#trial">Discover more</a>
+        <a class="btn btn--brand" href="#trial" data-track="cta_clicked" data-track-location="integrations">Discover more</a>
       </div>
     </section>
 
     <!-- Team work -->
-    <section class="team">
+    <section data-section="team-work" class="team">
       <div class="team__card">
         <div class="team__text">
           <div class="team__copy">
@@ -250,8 +262,8 @@
             </div>
           </div>
           <div class="team__ctas">
-            <a class="btn btn--brand" href="#trial">Start free trial</a>
-            <a class="btn btn--outline" href="#trial">Contact sales</a>
+            <a class="btn btn--brand" href="#trial" data-track="cta_clicked" data-track-location="team">Start free trial</a>
+            <a class="btn btn--outline" href="#trial" data-track="cta_clicked" data-track-location="team">Contact sales</a>
           </div>
         </div>
         <div class="team__diagram-wrap" aria-hidden="true">
@@ -283,7 +295,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials" id="customers">
+    <section data-section="testimonials" class="testimonials" id="customers">
       <h2 class="testimonials__title">Trusted by transformation leaders</h2>
       <div class="quotes">
         <figure class="quote">
@@ -314,7 +326,7 @@
     </section>
 
     <!-- Trial request -->
-    <section class="trial" id="trial">
+    <section data-section="trial" class="trial" id="trial">
       <div class="trial__card">
         <div class="trial__logo">
           <span class="unify-logo unify-logo--trial" role="img" aria-label="Unify">
