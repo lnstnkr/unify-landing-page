@@ -699,11 +699,12 @@
             <div class="form-row">
               <div class="field">
                 <label class="field__label" for="trial-name">Trial name</label>
-                <input class="field__input" id="trial-name" name="unify_preferred_trial_name" type="text" minlength="2" maxlength="18" placeholder="trialname" autocomplete="off" spellcheck="false" required
+                <input class="field__input" id="trial-name" name="unify_preferred_trial_name" type="text" minlength="2" maxlength="18" autocomplete="off" spellcheck="false" required
                        pattern="^(?![0-9])[a-z0-9]+$"
                        data-pattern-error="This field may only contain lowercase letters (a–z) and numbers, and must begin with a letter."
-                       aria-describedby="trial-name-help">
-                <p class="field__help" id="trial-name-help">2–15 characters, lowercase letters and numbers only.</p>
+>
+                <!-- Hidden to follow the Figma design; to restore, remove "hidden" and add aria-describedby="trial-name-help" to the input -->
+                <p class="field__help" id="trial-name-help" hidden>2–15 characters, lowercase letters and numbers only.</p>
               </div>
               <div class="field">
                 <label class="field__label" for="storage">Data storage location</label>
@@ -719,12 +720,14 @@
 
           <div class="form-ctas">
             <div class="checkboxes">
-              <label class="checkbox">
-                <input class="checkbox__input" type="checkbox" name="unify_free_trial_pp" value="1" required>
+              <!-- Required on the Bizzdesign form, hidden to follow the Figma design.
+                   To restore: remove "hidden" from the label and "disabled" from the input. -->
+              <label class="checkbox" hidden>
+                <input class="checkbox__input" type="checkbox" name="unify_free_trial_pp" value="1" required disabled>
                 <span class="checkbox__label">I have read and acknowledge the <a href="https://bizzdesign.com/policies/privacy-policy" target="_blank" rel="noopener">Bizzdesign Privacy Policy</a></span>
               </label>
-              <label class="checkbox">
-                <input class="checkbox__input" type="checkbox" name="unify_trial_t_c" value="1" required>
+              <label class="checkbox" hidden>
+                <input class="checkbox__input" type="checkbox" name="unify_trial_t_c" value="1" required disabled>
                 <span class="checkbox__label">I have read and agree to the Cloud Services Trial Agreement-Unify and its attached Data Processing Agreement.</span>
               </label>
               <label class="checkbox">

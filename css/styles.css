@@ -89,6 +89,10 @@ section[id] {
   scroll-margin-top: 16px;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
