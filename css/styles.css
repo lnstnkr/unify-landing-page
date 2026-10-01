@@ -282,9 +282,10 @@ section[id] {
   flex: 1 1 0;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center; /* vertically centred next to the illustration */
+  align-self: stretch;
   gap: 24px;
   min-width: 0;
-  padding-top: 56px;
 }
 
 .hero__title {
